@@ -1,6 +1,5 @@
 import { Manifest } from "deno-slack-sdk/mod.ts";
-import SampleWorkflow from "./workflows/sample_workflow.ts";
-import SampleObjectDatastore from "./datastores/sample_datastore.ts";
+import { AddTodo } from "./workflows/add_todo.ts";
 
 /**
  * The app manifest contains the app's configuration. This
@@ -8,17 +7,16 @@ import SampleObjectDatastore from "./datastores/sample_datastore.ts";
  * https://api.slack.com/automation/manifest
  */
 export default Manifest({
-  name: "slack-todo",
-  description: "A template for building Slack apps with Deno",
+  name: "Todo Manager",
+  description: "A todo manager to help you keep track of your tasks",
   icon: "assets/default_new_app_icon.png",
-  workflows: [SampleWorkflow],
-  outgoingDomains: [],
-  datastores: [SampleObjectDatastore],
+  workflows: [AddTodo],
+  outgoingDomains: ["jldvhhfcieepsexewykr.supabase.co"],
   botScopes: [
     "commands",
     "chat:write",
     "chat:write.public",
-    "datastore:read",
-    "datastore:write",
+    "channels:history",
+    "channels:read",
   ],
 });
