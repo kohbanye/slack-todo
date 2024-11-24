@@ -16,14 +16,18 @@ export const AddTodo = DefineWorkflow({
       message: {
         type: Schema.types.string,
       },
+      message_ts: {
+        type: Schema.types.string,
+      },
     },
-    required: ["user", "message"],
+    required: ["channel", "user", "message", "message_ts"],
   },
 });
 
 const sampleFunctionStep = AddTodo.addStep(AddTodoFunction, {
   user: AddTodo.inputs.user,
   message: AddTodo.inputs.message,
+  message_ts: AddTodo.inputs.message_ts,
 });
 
 AddTodo.addStep(Schema.slack.functions.SendMessage, {

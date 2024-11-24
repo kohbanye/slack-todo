@@ -16,6 +16,10 @@ export const AddTodoFunction = DefineFunction({
         type: Schema.types.string,
         description: "Message to be posted",
       },
+      message_ts: {
+        type: Schema.types.string,
+        description: "Timestamp of the message",
+      },
     },
     required: ["user", "message"],
   },
@@ -39,7 +43,12 @@ export default SlackFunction(
     );
 
     const { error } = await supabase.from("task").insert([
-      { name: inputs.message, user: inputs.user, is_done: false },
+      {
+        name: inputs.message,
+        user: inputs.user,
+        message_ts: inputs.message_ts,
+        is_done: false,
+      },
     ]);
 
     if (error) {

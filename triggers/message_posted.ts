@@ -34,6 +34,9 @@ export const messageTrigger: Trigger<typeof AddTodo.definition> = {
     message: {
       value: TriggerContextData.Event.MessagePosted.text,
     },
+    message_ts: {
+      value: TriggerContextData.Event.MessagePosted.message_ts,
+    }
   },
 };
 
