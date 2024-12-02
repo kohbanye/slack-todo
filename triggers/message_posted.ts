@@ -4,6 +4,7 @@ import {
   TriggerTypes,
 } from "deno-slack-api/mod.ts";
 import { Trigger } from "deno-slack-sdk/types.ts";
+import { CHANNEL_ID, TEST_CHANNEL_ID } from "../const.ts";
 import { AddTodo } from "../workflows/add_todo.ts";
 
 export const messageTrigger: Trigger<typeof AddTodo.definition> = {
@@ -13,7 +14,7 @@ export const messageTrigger: Trigger<typeof AddTodo.definition> = {
   workflow: `#/workflows/${AddTodo.definition.callback_id}`,
   event: {
     event_type: TriggerEventTypes.MessagePosted,
-    channel_ids: ["C07UNKRRJ3X", "C082LHKLXFB"],
+    channel_ids: [TEST_CHANNEL_ID, CHANNEL_ID],
     filter: {
       version: 1,
       root: {
@@ -36,7 +37,7 @@ export const messageTrigger: Trigger<typeof AddTodo.definition> = {
     },
     message_ts: {
       value: TriggerContextData.Event.MessagePosted.message_ts,
-    }
+    },
   },
 };
 

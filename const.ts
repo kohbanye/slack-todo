@@ -1,0 +1,2 @@
+export const TEST_CHANNEL_ID = "C082LHKLXFB";
+export const CHANNEL_ID = "C07UNKRRJ3X";
