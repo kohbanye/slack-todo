@@ -9,7 +9,7 @@ const dailyTrigger: Trigger<typeof NotificateTodo.definition> = {
   workflow: `#/workflows/${NotificateTodo.definition.callback_id}`,
   inputs: {},
   schedule: {
-    start_time: new Date(new Date().getTime() + 30000).toISOString(),
+    start_time: new Date(new Date().setHours(9, 0, 0, 0)).toISOString(),
     frequency: { type: "daily", repeats_every: 1 },
   },
 };
