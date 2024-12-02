@@ -1,5 +1,6 @@
 import { DefineFunction, Schema, SlackFunction } from "deno-slack-sdk/mod.ts";
 import { createClient } from "jsr:@supabase/supabase-js@2";
+import { Database } from "../database.types.ts";
 
 export const AddTodoFunction = DefineFunction({
   callback_id: "add_todo_function",
@@ -12,6 +13,10 @@ export const AddTodoFunction = DefineFunction({
         type: Schema.slack.types.user_id,
         description: "The user invoking the workflow",
       },
+      channel_id: {
+        type: Schema.slack.types.channel_id,
+        description: "The channel where the message was posted",
+      },
       message: {
         type: Schema.types.string,
         description: "Message to be posted",
@@ -21,7 +26,7 @@ export const AddTodoFunction = DefineFunction({
         description: "Timestamp of the message",
       },
     },
-    required: ["user", "message"],
+    required: ["user", "channel_id", "message"],
   },
   output_parameters: {
     properties: {
@@ -37,7 +42,7 @@ export const AddTodoFunction = DefineFunction({
 export default SlackFunction(
   AddTodoFunction,
   async ({ inputs, env }) => {
-    const supabase = createClient(
+    const supabase = createClient<Database>(
       env["SUPABASE_URL"],
       env["SUPABASE_KEY"],
     );
@@ -46,6 +51,7 @@ export default SlackFunction(
       {
         name: inputs.message,
         user: inputs.user,
+        channel_id: inputs.channel_id,
         message_ts: inputs.message_ts,
         is_done: false,
       },

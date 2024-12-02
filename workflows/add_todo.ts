@@ -24,13 +24,14 @@ export const AddTodo = DefineWorkflow({
   },
 });
 
-const sampleFunctionStep = AddTodo.addStep(AddTodoFunction, {
+const functionStep = AddTodo.addStep(AddTodoFunction, {
   user: AddTodo.inputs.user,
+  channel_id: AddTodo.inputs.channel,
   message: AddTodo.inputs.message,
   message_ts: AddTodo.inputs.message_ts,
 });
 
 AddTodo.addStep(Schema.slack.functions.SendMessage, {
   channel_id: AddTodo.inputs.channel,
-  message: sampleFunctionStep.outputs.result,
+  message: functionStep.outputs.result,
 });
