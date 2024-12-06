@@ -1,5 +1,6 @@
 import { Manifest } from "deno-slack-sdk/mod.ts";
 import { AddTodo } from "./workflows/add_todo.ts";
+import { MakeTodoDone } from "./workflows/make_todo_done.ts";
 import { NotificateTodo } from "./workflows/notificate_todo.ts";
 
 import "std/dotenv/load.ts";
@@ -12,8 +13,8 @@ import "std/dotenv/load.ts";
 export default Manifest({
   name: "Todo Manager",
   description: "A todo manager to help you keep track of your tasks",
-  icon: "assets/default_new_app_icon.png",
-  workflows: [AddTodo, NotificateTodo],
+  icon: "assets/assignment.png",
+  workflows: [AddTodo, NotificateTodo, MakeTodoDone],
   outgoingDomains: ["jldvhhfcieepsexewykr.supabase.co"],
   botScopes: [
     "commands",
@@ -21,5 +22,6 @@ export default Manifest({
     "chat:write.public",
     "channels:history",
     "channels:read",
+    "reactions:read",
   ],
 });
